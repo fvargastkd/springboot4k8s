@@ -1,4 +1,4 @@
-FROM java:8
+FROM java:7
 VOLUME /tmp
 ADD k8s-demo1-1.0.0-SNAPSHOT.jar config.jar
 RUN sh -c 'touch /k8s-demo.jar'
