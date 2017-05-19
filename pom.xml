@@ -104,7 +104,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             
-            <plugin>
+			<!--             
+			<plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
                 <executions>
@@ -137,23 +138,19 @@
                     </execution>    
                 </executions>
                 <configuration>
-                    <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的服务地址 -->
                     <serverId>docker-maxent</serverId>
                     <registryUrl>maxcd03-kube1.chinacloudapp.cn</registryUrl>
-                    <!-- <forceTags>true</forceTags> -->
-                    <!--install阶段也上传，否则只有deploy阶段上传-->
                     <pushImage>true</pushImage>
                     <dockerDirectory>target/docker</dockerDirectory>
                      <imageName>
                         ${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}
                     </imageName>
                     <imageTags>
-                        <!--docker的tag为项目版本号、latest-->
                         <imageTag>${git.commit.id.abbrev}</imageTag>
                         <imageTag>latest</imageTag>
                     </imageTags>
                     <resources>
-                        <rescource><!-- 将打包文件放入dockerDirectory指定的位置 -->
+                        <rescource>
                                <targetPath>/</targetPath>
                                <directory>${project.build.directory}</directory>
                                <include>${project.build.finalName}.jar</include>
@@ -161,8 +158,9 @@
                     </resources>
                 </configuration>
             </plugin>
+             -->
+             
             
-			<!--             
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
@@ -178,7 +176,7 @@
 					</resources>
 				</configuration>
 			</plugin>
-			-->
+
 			
 		</plugins>
 	</build>
