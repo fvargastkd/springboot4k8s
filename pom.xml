@@ -24,6 +24,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+        <docker.repostory>maxcd03-kube1.chinacloudapp.cn</docker.repostory>
+        <docker.registry.name>viiso</docker.registry.name>
 	</properties>
 
 	<parent>
@@ -101,6 +103,66 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tag-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${docker.registry.name}/${project.artifactId}:${project.version}</image>
+                            <newName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                        </configuration>
+                    </execution>    
+                </executions>
+                <configuration>
+                    <!-- 私有仓库配置，需要settings.xml文件配合serverId对应的服务地址 -->
+                    <serverId>docker-maxent</serverId>
+                    <registryUrl>maxcd03-kube1.chinacloudapp.cn</registryUrl>
+                    <!-- <forceTags>true</forceTags> -->
+                    <!--install阶段也上传，否则只有deploy阶段上传-->
+                    <pushImage>true</pushImage>
+                    <dockerDirectory>target/docker</dockerDirectory>
+                     <imageName>
+                        ${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}
+                    </imageName>
+                    <imageTags>
+                        <!--docker的tag为项目版本号、latest-->
+                        <imageTag>${git.commit.id.abbrev}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <resources>
+                        <rescource><!-- 将打包文件放入dockerDirectory指定的位置 -->
+                               <targetPath>/</targetPath>
+                               <directory>${project.build.directory}</directory>
+                               <include>${project.build.finalName}.jar</include>
+                           </rescource>
+                    </resources>
+                </configuration>
+            </plugin>
+            
+			<!--             
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
@@ -116,6 +178,8 @@
 					</resources>
 				</configuration>
 			</plugin>
+			-->
+			
 		</plugins>
 	</build>
 
