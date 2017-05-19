@@ -16,7 +16,7 @@
 	
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>
-		<docker.image.name>test/k8s-demo1</docker.image.name>
+		<docker.image.name>maxcd03-kube1.chinacloudapp.cn/test/k8s-demo1:v1</docker.image.name>
 	</properties>
 
 	<parent>
