@@ -1,0 +1,38 @@
+
+############## custmer #################
+
+############## spring cloud #################
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@10.16.0.12:8761/eureka/,http://admin:123456@10.16.0.7:8761/eureka/
+
+############## spring boot #################
+
+server:
+  port: 8762
+    
+security:
+  basic:
+    enabled: false
+  user:
+    name: admin
+    password: 123456
+
+management:
+  security:
+    enabled: false
+    
+spring:
+  application:
+    name: admin
+  jackson:
+    serialization:
+      indent_output: true
+
+endpoints:
+  health:
+    sensitive: false

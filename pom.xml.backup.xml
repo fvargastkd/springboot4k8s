@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.maxent.cloud</groupId>
-	<artifactId>maxent-cloud</artifactId>
+	<artifactId>springboot-k8s</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>maxent cloud</name>
@@ -17,16 +17,15 @@
 	</organization>
 
 	<modules>
-		<module>maxent-discovery</module>
-		<module>maxent-gateway</module>
-		<module>maxent-openapi</module>
-		<module>maxent-admin</module>
+		<module>k8s-demo1</module>
 	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+        <docker.repostory>maxcd03-kube1.chinacloudapp.cn</docker.repostory>
+        <docker.registry.name>viiso</docker.registry.name>
 	</properties>
 
 	<parent>
@@ -104,6 +103,64 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            
+			<!--             
+			<plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tag-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${docker.registry.name}/${project.artifactId}:${project.version}</image>
+                            <newName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}</imageName>
+                        </configuration>
+                    </execution>    
+                </executions>
+                <configuration>
+                    <serverId>docker-maxent</serverId>
+                    <registryUrl>maxcd03-kube1.chinacloudapp.cn</registryUrl>
+                    <pushImage>true</pushImage>
+                    <dockerDirectory>target/docker</dockerDirectory>
+                     <imageName>
+                        ${docker.repostory}/${docker.registry.name}/${project.artifactId}:${project.version}
+                    </imageName>
+                    <imageTags>
+                        <imageTag>${git.commit.id.abbrev}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <resources>
+                        <rescource>
+                               <targetPath>/</targetPath>
+                               <directory>${project.build.directory}</directory>
+                               <include>${project.build.finalName}.jar</include>
+                           </rescource>
+                    </resources>
+                </configuration>
+            </plugin>
+             -->
+             
+            
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
@@ -119,53 +176,10 @@
 					</resources>
 				</configuration>
 			</plugin>
+
+			
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>prod</id>
-			<properties>
-				<profile.active>prod</profile.active>
-				<test.skip>true</test.skip>
-			</properties>
-		</profile>
-		<profile>
-			<id>demo</id>
-			<properties>
-				<profile.active>demo</profile.active>
-				<config-server.url>http://10.13.0.58:8888</config-server.url>
-				<test.skip>true</test.skip>
-			</properties>
-		</profile>
-		<profile>
-			<id>test</id>
-			<properties>
-				<profile.active>test</profile.active>
-				<config-server.url>http://10.17.0.17:8888</config-server.url>
-				<test.skip>true</test.skip>
-			</properties>
-		</profile>
-		<profile>
-			<id>dev</id>
-			<properties>
-				<profile.active>dev</profile.active>
-				<config-server.url>http://10.16.0.7:8888</config-server.url>
-				<test.skip>true</test.skip>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-		</profile>
-		<profile>
-			<id>native</id>
-			<properties>
-				<profile.active>native</profile.active>
-				<config-server.url>http://127.0.0.1:8888</config-server.url>
-				<test.skip>true</test.skip>
-			</properties>
-		</profile>
-	</profiles>
 
 	<repositories>
 	    <repository>
