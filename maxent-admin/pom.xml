@@ -16,7 +16,7 @@
 	
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>
-		<docker.image.name>test/maxent-admin</docker.image.name>
+		<docker.image.name>test/maxent-admin:v1</docker.image.name>
 	</properties>
 	
 	<parent>
