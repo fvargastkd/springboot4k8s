@@ -6,9 +6,7 @@
 eureka:
   datacenter: cloud
   environment: dev
-  client: 
-    registerWithEureka: false
-    fetchRegistry: false
+  client:
     serviceUrl:
       defaultZone: http://admin:123456@discovery:${server.port}/eureka/
 
