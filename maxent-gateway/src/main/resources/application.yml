@@ -4,6 +4,8 @@
 ############## spring cloud #################
       
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     serviceUrl: 
       defaultZone: http://admin:123456@discovery:8761/eureka/

@@ -6,6 +6,8 @@
 eureka:
   datacenter: cloud
   environment: dev
+  instance:
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone: http://admin:123456@discovery:${server.port}/eureka/
