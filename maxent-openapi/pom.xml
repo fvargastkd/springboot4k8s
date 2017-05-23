@@ -16,7 +16,7 @@
 	
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>
-		<docker.image.name>maxent/openapi</docker.image.name>
+		<docker.image.name>test/maxent-openapi</docker.image.name>
 	</properties>
 
 	<parent>
