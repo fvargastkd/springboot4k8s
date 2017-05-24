@@ -1,0 +1,39 @@
+ 
+############## custmer #################
+
+############## spring cloud #################
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+############## spring boot #################
+
+server:
+  port: 9130
+  tomcat:
+    max-connections: 200
+    
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: microservice-auth
+  data:
+    mongodb:
+      database: auth
+      host: 10.16.0.6
+      port: 27017 
+
+endpoints:
+  health:
+    sensitive: false

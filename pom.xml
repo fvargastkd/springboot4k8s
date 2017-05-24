@@ -21,6 +21,7 @@
 		<module>maxent-gateway</module>
 		<module>maxent-openapi</module>
 		<module>maxent-admin</module>
+		<module>maxent-config</module>
 	</modules>
 
 	<properties>
@@ -127,6 +128,14 @@
 			<id>prod</id>
 			<properties>
 				<profile.active>prod</profile.active>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>k8s</id>
+			<properties>
+				<profile.active>k8s</profile.active>
+				<config-server.url>http://config:8888</config-server.url>
 				<test.skip>true</test.skip>
 			</properties>
 		</profile>

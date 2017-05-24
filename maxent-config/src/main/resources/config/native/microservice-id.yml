@@ -1,0 +1,46 @@
+
+############## custmer #################
+
+zookeeper:
+  path: 10.16.0.4:2181
+  rootNode: /tids
+  optionName: idApi
+
+kafka:
+  producer:
+    url: 10.16.0.6:9092
+    topic_log: log_idApi
+    topic_report: report_source_api
+
+############## spring cloud #################
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+############## spring boot #################
+
+server:
+  port: 9121
+  tomcat:
+    max-connections: 200
+    
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: microservice-id
+  data:
+    mongodb:
+      database: idservice
+      host: 10.16.0.6
+      port: 27017

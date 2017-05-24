@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<property name="NAME" value="config"/>
+	<property name="REDIS_IP" value="10.17.0.13"/>
+	<property name="REDIS_PORT" value="6379"/>
+	<include resource="com/maxent/commons/asynlogger/asyn.xml" />
+
+	<root level="INFO">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="ASYNCMQ" />
+	</root>
+	
+</configuration>

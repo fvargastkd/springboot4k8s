@@ -1,0 +1,35 @@
+
+############## custmer #################
+
+############## spring cloud #################
+  
+eureka:
+  datacenter: cloud
+  environment: native
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://admin:123456@127.0.0.1:${server.port}/eureka/
+
+############## spring boot #################
+
+server:
+  port: 8761
+
+security:
+  basic:
+    enabled: true
+  user:
+    name: admin
+    password: 123456
+
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: discovery

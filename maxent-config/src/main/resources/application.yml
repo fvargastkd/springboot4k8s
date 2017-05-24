@@ -1,0 +1,131 @@
+
+info:
+  build:
+    name: '@project.name@'
+    description: '@project.description@'
+    version: '@project.version@'
+
+server.port: 8888
+management.security.enabled: false
+
+spring.profiles.active: '@profile.active@'
+
+---
+spring:
+  profiles: native
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: classpath:config/native/
+logging.config: classpath:logback-native.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+---
+spring:
+  profiles: dev
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@mx-gitlab:common/microservice-config.git
+#          uri: http://gitlab.maxent-inc.com/common/microservice-config.git
+          searchPaths:  dev
+logging.config: classpath:logback-dev.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@10.16.0.12:8761/eureka/,http://admin:123456@10.16.0.7:8761/eureka/
+---
+spring:
+  profiles: k8s
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://git.oschina.net/bestaone/microservice-config.git
+          searchPaths:  k8s
+          username: ci.microservice
+          password: MC123qwe
+logging.config: classpath:logback-k8s.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@discovery:8761/eureka/
+---
+spring:
+  profiles: test
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: "git@mx-gitlab:common/microservice-config.git"
+#          uri: http://gitlab.maxent-inc.com/common/microservice-config.git
+          searchPaths:  test
+          username: ci.microservice
+          password: MC123qwe
+logging.config: classpath:logback-testx.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@10.17.0.17:8761/eureka/,http://admin:123456@10.17.0.18:8761/eureka/
+---
+spring:
+  profiles: demo
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: "git@mx-gitlab:common/microservice-config.git"
+#          uri: http://gitlab.maxent-inc.com/common/microservice-config.git
+          searchPaths:  demo
+          username: ci.microservice
+          password: MC123qwe
+logging.config: classpath:logback-demo.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@10.13.0.58:8761/eureka/,http://admin:123456@10.13.0.59:8761/eureka/
+---
+spring:
+  profiles: beta
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: "git@mx-gitlab:common/microservice-config.git"
+#          uri: http://gitlab.maxent-inc.com/common/microservice-config.git
+          searchPaths:  beta
+          username: ci.microservice
+          password: MC123qwe
+logging.config: classpath:logback-beta.xml
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@10.11.1.164:8761/eureka/,http://admin:123456@10.11.1.165:8761/eureka/

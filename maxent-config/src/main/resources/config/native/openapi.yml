@@ -1,0 +1,67 @@
+
+############## custmer #################
+
+############## spring cloud #################
+
+zuul:
+  host:
+    maxTotalConnections: 200
+    maxPerRouteConnections: 50
+    socket-timeout-millis: 5000
+    connect-timeout-millis: 5000
+  routes:
+    api-fd-url:
+      path: /fd/**
+      serviceId: microservice-fd 
+    api-id-url:
+      path: /id/**
+      serviceId: microservice-id 
+      
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+
+hystrix.command.default.isolation.thread.timeoutInMilliseconds: 5000
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+  OkToRetryOnAllOperations: true
+
+############## spring boot #################
+
+server:
+  port: 8765
+  compression:
+    enabled: true
+    mime-types: application/json
+  tomcat.max-connections: 200
+    
+management:
+  security:
+    enabled: false
+ 
+spring:
+  application:
+    name: openapi
+  data:
+    mongodb:
+      database: auth
+      host: 10.16.0.6
+      port: 27017   
+  redis:
+    database: 0
+    host: 10.16.0.15
+    password: 
+    port: 6379
+    timeout: 0
+    pool:
+      max-active: 8
+      max-idle: 8
+      max-wait: -1
+      min-idle: 0

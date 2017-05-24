@@ -1,0 +1,29 @@
+
+############## custmer #################
+
+############## spring cloud #################
+
+zuul:
+  routes:
+    api-ac-url:
+      path: /auth/**
+      serviceId: microservice-auth
+      
+eureka:
+  client:
+    serviceUrl: 
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+
+############## spring boot #################
+
+server:
+  port: 8764
+      
+management:
+  security:
+    enabled: false
+    
+spring:
+  application:
+    name: gateway
+      

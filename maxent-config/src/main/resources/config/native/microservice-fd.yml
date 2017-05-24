@@ -1,0 +1,57 @@
+ 
+############## custmer #################
+third:
+  enabled: false
+  phoneBlacklistService:
+    url: http://api.secboot.com/phone/black/query
+    appkey: hP2iI6oDLu
+    secretkey: 6NcxLQVTTWpMZ81WT8Gm
+    httpTimeout: 100
+    httpRetryTimes: 1
+    httpMaxConnPerRoute: 20
+    httpMaxConnTotal: 200
+    httpConnKeepAliveTime: 30
+
+zookeeper:
+  path: 10.16.0.4:2181
+  rootNode: /tids
+  
+kafka:
+  producer:
+    url: 10.17.0.15:9092
+    topic_log: log_id_system_v2_call
+    topic_report: report_source_api
+    
+############## spring cloud #################
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://admin:123456@127.0.0.1:8761/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+
+############## spring boot #################
+
+server:
+  port: 9120
+  tomcat:
+    max-connections: 200
+    
+management:
+  security:
+    enabled: false
+
+spring:
+  application:
+    name: microservice-fd
+  data:
+    mongodb:
+      database: mofa
+      host: 10.16.0.6
+      port: 27017
+
