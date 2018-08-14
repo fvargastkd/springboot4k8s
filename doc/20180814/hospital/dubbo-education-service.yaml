@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dubbo-education-service
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dubbo-education-service
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/dubbo-education-service:0.0.1-SNAPSHOT
+        name: dubbo-education-service
+        ports:
+        - containerPort: 20880
+      imagePullSecrets:
+      - name: registry-tfit-secret

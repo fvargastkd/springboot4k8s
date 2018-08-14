@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dubbo-report-service
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dubbo-report-service
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/dubbo-report-service:0.0.1-SNAPSHOT
+        name: dubbo-report-service
+        ports:
+        - containerPort: 20889
+      imagePullSecrets:
+      - name: registry-tfit-secret

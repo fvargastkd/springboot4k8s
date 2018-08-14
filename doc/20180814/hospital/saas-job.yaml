@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: saas-job
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: saas-job
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/saas-job:0.0.1-SNAPSHOT
+        name: saas-job
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: registry-tfit-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: saas-job
+  namespace: hospital-test
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 18086
+  selector:
+    app: saas-job
+  type: NodePort
+

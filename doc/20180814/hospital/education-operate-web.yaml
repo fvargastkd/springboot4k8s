@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: education-operate-web
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: education-operate-web
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/education-operate-web:0.0.1-SNAPSHOT
+        name: education-operate-web
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: registry-tfit-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: education-operate-web
+  namespace: hospital-test
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 18083
+  selector:
+    app: education-operate-web
+  type: NodePort
+

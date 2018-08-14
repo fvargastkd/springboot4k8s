@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dubbo-common-service
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dubbo-common-service
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/dubbo-common-service:0.0.1-SNAPSHOT
+        name: dubbo-common-service
+        ports:
+        - containerPort: 20883
+      imagePullSecrets:
+      - name: registry-tfit-secret

@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: saas-warning-job
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: saas-warning-job
+    spec:
+      containers:
+      - image: registry.tfit.com/hospitalmeal_test/saas-warning-job:0.0.1-SNAPSHOT
+        name: saas-warning-job
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: registry-tfit-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: saas-warning-job
+  namespace: hospital-test
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 18087
+  selector:
+    app: saas-warning-job
+  type: NodePort
+

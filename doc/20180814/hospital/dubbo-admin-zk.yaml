@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dubbo-admin-zk-v2
+  namespace: hospital-test
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: dubbo-admin-zk-v2
+    spec:
+      containers:
+      - image: registry.tfit.com/sunshinelunch/dubbo-admin-zk:v2
+        name: dubbo-admin-zk-v2
+        ports:
+        - name: zk
+          containerPort: 2181
+        - name: dubbo-admin
+          containerPort: 8080
+      imagePullSecrets:
+      - name: registry-tfit-secret
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dubbo-admin-zk-v2
+  namespace: hospital-test
+spec:
+  ports:
+  - name: zk
+    port: 2181
+    targetPort: 2181
+    nodePort: 12181
+  - name: dubbo-admin
+    port: 8080
+    targetPort: 8080
+    nodePort: 19080
+  selector:
+    app: dubbo-admin-zk-v2
+  type: NodePort
+

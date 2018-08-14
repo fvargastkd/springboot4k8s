@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1  #当前格式的版本
+kind: Deployment                #当前创建资源的类型， 当前类型是Deployment
+metadata:                       #当前资源的元数据
+  name: nginx                   #当前资源的名字 是元数据必须的项
+spec:
+  replicas: 3                   #指当前创建的副本数量 默认值就为‘1’
+  template:                     #定义pod的模板
+    metadata:                   #当前pod的元数据
+      labels:                   #至少顶一个labels标签，可任意创建一个 key:value
+        app: nginx-example
+    spec:                       #当前pod的规格说明
+      containers:               #容器
+      - image: nginx:1.12       #镜像 镜像的名字和版本
+        name: nginx             #是容器的名字容器名字是必须填写的
+        ports:
+        - containerPort: 80
+          protocol: TCP
